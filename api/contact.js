@@ -61,8 +61,8 @@ module.exports = async (req, res) => {
     return res.status(400).json({ ok: false, error: 'Ungültiges Thema' });
   }
 
-  if (!isValidLength(message, 10, 4000)) {
-    return res.status(400).json({ ok: false, error: 'Ungültige Nachricht' });
+  if (typeof message !== 'string' || message.length < 1) {
+    return res.status(400).json({ ok: false, error: 'invalid_message' });
   }
 
   const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, MAIL_TO, MAIL_FROM } = process.env;

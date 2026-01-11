@@ -54,6 +54,7 @@ const i18n = {
     'contact.form.success': 'Danke! Deine Nachricht wurde notiert. Ich melde mich zeitnah.',
     'contact.form.errorRequired': 'Bitte fülle alle erforderlichen Felder aus.',
     'contact.form.errorEmail': 'Bitte gib eine gültige E-Mail-Adresse ein.',
+    'contact.form.errorMessage': 'Bitte gib eine Nachricht ein.',
     'contact.form.errorServer': 'Etwas ist schiefgelaufen. Bitte versuche es später erneut.',
     'contact.whatsappButton': 'Per WhatsApp schreiben',
     'contact.emailButton': 'Per E-Mail senden',
@@ -116,6 +117,7 @@ const i18n = {
     'contact.form.success': 'Thank you! I have received your message and will reply shortly.',
     'contact.form.errorRequired': 'Please complete all required fields.',
     'contact.form.errorEmail': 'Please enter a valid email address.',
+    'contact.form.errorMessage': 'Please enter a message.',
     'contact.form.errorServer': 'Something went wrong. Please try again later.',
     'contact.whatsappButton': 'Message via WhatsApp',
     'contact.emailButton': 'Send via email',
@@ -242,6 +244,7 @@ function setSubmitting(state) {
 }
 
 const honeypotIdentifiers = ['hp_field', 'website'];
+const messageFieldIdentifiers = ['message'];
 
 function isHoneypotField(element) {
   if (!element) return false;
@@ -250,9 +253,18 @@ function isHoneypotField(element) {
   return honeypotIdentifiers.includes(id) || honeypotIdentifiers.includes(name);
 }
 
+function isMessageField(element) {
+  if (!element) return false;
+  const id = (element.id || '').toLowerCase();
+  const name = (element.name || '').toLowerCase();
+  return messageFieldIdentifiers.includes(id) || messageFieldIdentifiers.includes(name);
+}
+
 function getRequiredFields(formEl) {
   if (!formEl) return [];
-  return Array.from(formEl.querySelectorAll('[required]')).filter((el) => !isHoneypotField(el));
+  return Array.from(formEl.querySelectorAll('[required]')).filter(
+    (el) => !isHoneypotField(el) && !isMessageField(el)
+  );
 }
 
 function isFormValid(formEl) {
@@ -304,6 +316,11 @@ form?.addEventListener('submit', async (event) => {
   const message = formData.get('message')?.trim() || '';
   const websiteValue =
     (formData.get('hp_field') || formData.get('website') || '').trim();
+
+  if (!message) {
+    showMessage('contact.form.errorMessage', true);
+    return;
+  }
 
   if (!emailPattern.test(email)) {
     showMessage('contact.form.errorEmail', true);
