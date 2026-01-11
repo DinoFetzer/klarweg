@@ -111,14 +111,14 @@
     </section>
 
     <section class="philosophy-image">
-  <div class="container">
-    <img
-      src="assets/images/Weg.png"
-      alt="Ein heller Weg, der aus dem Dunkeln ins Licht führt"
-      loading="lazy"
-      decoding="async"
-    />
-  </div>
+      <div class="container">
+        <img
+          src="assets/images/Weg.png"
+          alt="Ein heller Weg, der aus dem Dunkeln ins Licht führt"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
     </section>
 
     <section class="section" id="philosophy">
@@ -150,19 +150,19 @@
         </div>
         <p class="section-lead" data-i18n="contact.text">Schreibe mir vertraulich – ich melde mich zeitnah zurück.</p>
         <p class="safety-note" data-i18n="contact.safety">In akuten Notfällen wende dich bitte an den Notruf (112) oder den ärztlichen Bereitschaftsdienst (116117).</p>
-        <form id="contact-form" class="contact-form" novalidate>
-          <input type="text" name="website" id="website" autocomplete="off" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
+        <form id="contact-form" class="contact-form" novalidate autocomplete="off">
+          <input type="text" name="hp_field" id="hp_field" autocomplete="new-password" tabindex="-1" aria-hidden="true" inputmode="none" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">
           <div class="form-group">
             <label for="name" data-i18n="contact.form.nameLabel">Name</label>
-            <input type="text" id="name" name="name" required data-i18n-placeholder="contact.form.namePlaceholder" placeholder="Dein Name">
+            <input type="text" id="name" name="name" required data-i18n-placeholder="contact.form.namePlaceholder" placeholder="Dein Name" autocomplete="off">
           </div>
           <div class="form-group">
             <label for="email" data-i18n="contact.form.emailLabel">E-Mail</label>
-            <input type="email" id="email" name="email" required data-i18n-placeholder="contact.form.emailPlaceholder" placeholder="name@mail.de">
+            <input type="email" id="email" name="email" required data-i18n-placeholder="contact.form.emailPlaceholder" placeholder="name@mail.de" autocomplete="off">
           </div>
           <div class="form-group">
             <label for="topic" data-i18n="contact.form.topicLabel">Thema</label>
-            <select id="topic" name="topic" required>
+            <select id="topic" name="topic" required autocomplete="off">
               <option value="" disabled selected data-i18n="contact.form.topicPlaceholder">Bitte Thema wählen</option>
               <option value="self" data-i18n="contact.form.topic1">Unterstützung für mich</option>
               <option value="family" data-i18n="contact.form.topic2">Unterstützung für Angehörige</option>
@@ -172,7 +172,7 @@
           </div>
           <div class="form-group">
             <label for="message" data-i18n="contact.form.messageLabel">Nachricht</label>
-            <textarea id="message" name="message" rows="4" required data-i18n-placeholder="contact.form.messagePlaceholder" placeholder="Deine Nachricht"></textarea>
+            <textarea id="message" name="message" rows="4" required data-i18n-placeholder="contact.form.messagePlaceholder" placeholder="Deine Nachricht" autocomplete="off"></textarea>
           </div>
           <button type="submit" class="btn primary" data-i18n="contact.form.submit">Nachricht senden</button>
           <p class="form-message" role="status" aria-live="polite" data-message-key="contact.form.success" data-i18n="contact.form.success">Danke! Deine Nachricht wurde notiert. Ich melde mich zeitnah.</p>
@@ -189,8 +189,8 @@
     <div class="container footer-grid">
       <p class="footer-meta">© <span id="current-year"></span> Klarweg – Sigrid Wadenpohl</p>
       <p>
-        <a href="https://www.klarweg.online" target="_blank" rel="noopener">www.klarweg.online</a> · 
-        <a href="mailto:info@klarweg.online">info@klarweg.online</a> · 
+        <a href="https://www.klarweg.online" target="_blank" rel="noopener">www.klarweg.online</a> ·
+        <a href="mailto:info@klarweg.online">info@klarweg.online</a> ·
         <a href="https://wa.me/491727215187" target="_blank" rel="noopener">WhatsApp: +49 172 7215187</a>
       </p>
       <p class="footer-note" data-i18n="footer.disclaimer">Vertrauliche Beratung – ersetzt keine medizinische oder psychotherapeutische Notfallversorgung.</p>
