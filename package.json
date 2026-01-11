@@ -1,0 +1,8 @@
+{
+  "name": "klarweg",
+  "private": true,
+  "type": "commonjs",
+  "dependencies": {
+    "nodemailer": "^6.9.8"
+  }
+}

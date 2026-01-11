@@ -50,9 +50,11 @@ const i18n = {
     'contact.form.messageLabel': 'Nachricht',
     'contact.form.messagePlaceholder': 'Deine Nachricht',
     'contact.form.submit': 'Nachricht senden',
+    'contact.form.sending': 'Senden...',
     'contact.form.success': 'Danke! Deine Nachricht wurde notiert. Ich melde mich zeitnah.',
     'contact.form.errorRequired': 'Bitte fülle alle erforderlichen Felder aus.',
     'contact.form.errorEmail': 'Bitte gib eine gültige E-Mail-Adresse ein.',
+    'contact.form.errorServer': 'Etwas ist schiefgelaufen. Bitte versuche es später erneut.',
     'contact.whatsappButton': 'Per WhatsApp schreiben',
     'contact.emailButton': 'Per E-Mail senden',
     'contact.emailSubject': 'Klarweg Anfrage',
@@ -110,9 +112,11 @@ const i18n = {
     'contact.form.messageLabel': 'Message',
     'contact.form.messagePlaceholder': 'Your message',
     'contact.form.submit': 'Send message',
+    'contact.form.sending': 'Sending...',
     'contact.form.success': 'Thank you! I have received your message and will reply shortly.',
     'contact.form.errorRequired': 'Please complete all required fields.',
     'contact.form.errorEmail': 'Please enter a valid email address.',
+    'contact.form.errorServer': 'Something went wrong. Please try again later.',
     'contact.whatsappButton': 'Message via WhatsApp',
     'contact.emailButton': 'Send via email',
     'contact.emailSubject': 'Klarweg inquiry',
@@ -131,8 +135,12 @@ const scrollLinks = document.querySelectorAll('[data-scroll]');
 const form = document.getElementById('contact-form');
 const formMessage = document.querySelector('.form-message');
 const emailLink = document.getElementById('email-link');
+const submitButton = form?.querySelector('button[type="submit"]') || null;
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 let currentLanguage = 'de';
+let isSubmitting = false;
+const emailPattern = /^[\w.!#$%&'*+/=?`{|}~-]+@[\w-]+(?:\.[\w-]+)+$/;
+const isValidLength = (value, min, max) => typeof value === 'string' && value.length >= min && value.length <= max;
 
 const translate = (key, lang = currentLanguage) => {
   return i18n[lang]?.[key] ?? i18n.de[key] ?? key;
@@ -165,12 +173,19 @@ function applyLanguage(lang) {
 
   if (formMessage) {
     const messageKey = formMessage.dataset.messageKey || 'contact.form.success';
-    formMessage.textContent = translate(messageKey, lang);
+    if (messageKey !== 'custom') {
+      formMessage.textContent = translate(messageKey, lang);
+    }
   }
 
   langButtons.forEach((btn) => {
     btn.classList.toggle('active', btn.dataset.lang === lang);
   });
+
+  if (submitButton) {
+    const buttonKey = isSubmitting ? 'contact.form.sending' : 'contact.form.submit';
+    submitButton.textContent = translate(buttonKey, lang);
+  }
 }
 
 langButtons.forEach((button) => {
@@ -219,35 +234,80 @@ scrollLinks.forEach((link) => {
   });
 });
 
-function showMessage(key, isError = false) {
+function setSubmitting(state) {
+  if (!submitButton) return;
+  isSubmitting = state;
+  submitButton.disabled = state;
+  const key = state ? 'contact.form.sending' : 'contact.form.submit';
+  submitButton.textContent = translate(key);
+}
+
+function showMessage(key, isError = false, overrideText) {
   if (!formMessage) return;
-  formMessage.dataset.messageKey = key;
-  formMessage.textContent = translate(key);
+  if (overrideText) {
+    formMessage.dataset.messageKey = 'custom';
+    formMessage.textContent = overrideText;
+  } else {
+    formMessage.dataset.messageKey = key;
+    formMessage.textContent = translate(key);
+  }
   formMessage.classList.toggle('error', Boolean(isError));
   formMessage.classList.add('visible');
 }
 
-form?.addEventListener('submit', (event) => {
+form?.addEventListener('submit', async (event) => {
   event.preventDefault();
-  const formData = new FormData(form);
-  const name = formData.get('name')?.trim();
-  const email = formData.get('email')?.trim();
-  const topic = formData.get('topic');
-  const message = formData.get('message')?.trim();
+  if (isSubmitting) return;
 
-  if (!name || !email || !topic || !message) {
+  const formData = new FormData(form);
+  const name = formData.get('name')?.trim() || '';
+  const email = formData.get('email')?.trim() || '';
+  const topicValue = formData.get('topic');
+  const topic = typeof topicValue === 'string' ? topicValue.trim() : '';
+  const message = formData.get('message')?.trim() || '';
+  const website = formData.get('website')?.trim() || '';
+
+  if (!isValidLength(name, 2, 120) || !isValidLength(topic, 1, 80) || !isValidLength(message, 10, 4000)) {
     showMessage('contact.form.errorRequired', true);
     return;
   }
 
-  const emailPattern = /^[\w.!#$%&'*+/=?`{|}~-]+@[\w-]+(?:\.[\w-]+)+$/;
-  if (!emailPattern.test(email)) {
+  if (!isValidLength(email, 5, 200) || !emailPattern.test(email)) {
     showMessage('contact.form.errorEmail', true);
     return;
   }
 
-  form.reset();
-  showMessage('contact.form.success', false);
+  setSubmitting(true);
+
+  try {
+    const response = await fetch('/api/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify({ name, email, topic, message, website })
+    });
+
+    let result = null;
+    try {
+      result = await response.json();
+    } catch (err) {
+      result = null;
+    }
+
+    if (response.ok && result?.ok) {
+      form.reset();
+      showMessage('contact.form.success', false);
+    } else {
+      const serverMessage = typeof result?.error === 'string' ? result.error : null;
+      showMessage('contact.form.errorServer', true, serverMessage);
+    }
+  } catch (err) {
+    showMessage('contact.form.errorServer', true);
+  } finally {
+    setSubmitting(false);
+  }
 });
 
 emailLink?.addEventListener('click', (event) => {
