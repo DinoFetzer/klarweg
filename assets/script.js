@@ -140,7 +140,6 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 let currentLanguage = 'de';
 let isSubmitting = false;
 const emailPattern = /^[\w.!#$%&'*+/=?`{|}~-]+@[\w-]+(?:\.[\w-]+)+$/;
-const isValidLength = (value, min, max) => typeof value === 'string' && value.length >= min && value.length <= max;
 
 const translate = (key, lang = currentLanguage) => {
   return i18n[lang]?.[key] ?? i18n.de[key] ?? key;
@@ -242,6 +241,29 @@ function setSubmitting(state) {
   submitButton.textContent = translate(key);
 }
 
+const honeypotIdentifiers = ['hp_field', 'website'];
+
+function isHoneypotField(element) {
+  if (!element) return false;
+  const id = (element.id || '').toLowerCase();
+  const name = (element.name || '').toLowerCase();
+  return honeypotIdentifiers.includes(id) || honeypotIdentifiers.includes(name);
+}
+
+function getRequiredFields(formEl) {
+  if (!formEl) return [];
+  return Array.from(formEl.querySelectorAll('[required]')).filter((el) => !isHoneypotField(el));
+}
+
+function isFormValid(formEl) {
+  return getRequiredFields(formEl).every((el) => {
+    if (el.tagName === 'SELECT') {
+      return Boolean(el.value);
+    }
+    return Boolean((el.value || '').trim());
+  });
+}
+
 function showMessage(key, isError = false, overrideText) {
   if (!formMessage) return;
   if (overrideText) {
@@ -259,20 +281,31 @@ form?.addEventListener('submit', async (event) => {
   event.preventDefault();
   if (isSubmitting) return;
 
+  const honeypotField =
+    form.querySelector('#hp_field') ||
+    form.querySelector('[name="hp_field"]') ||
+    form.querySelector('#website') ||
+    form.querySelector('[name="website"]');
+
+  if (honeypotField && honeypotField.value.trim()) {
+    return;
+  }
+
+  if (!isFormValid(form)) {
+    showMessage('contact.form.errorRequired', true);
+    return;
+  }
+
   const formData = new FormData(form);
   const name = formData.get('name')?.trim() || '';
   const email = formData.get('email')?.trim() || '';
   const topicValue = formData.get('topic');
   const topic = typeof topicValue === 'string' ? topicValue.trim() : '';
   const message = formData.get('message')?.trim() || '';
-  const website = formData.get('website')?.trim() || '';
+  const websiteValue =
+    (formData.get('hp_field') || formData.get('website') || '').trim();
 
-  if (!isValidLength(name, 2, 120) || !isValidLength(topic, 1, 80) || !isValidLength(message, 10, 4000)) {
-    showMessage('contact.form.errorRequired', true);
-    return;
-  }
-
-  if (!isValidLength(email, 5, 200) || !emailPattern.test(email)) {
+  if (!emailPattern.test(email)) {
     showMessage('contact.form.errorEmail', true);
     return;
   }
@@ -286,7 +319,7 @@ form?.addEventListener('submit', async (event) => {
         'Content-Type': 'application/json',
         Accept: 'application/json'
       },
-      body: JSON.stringify({ name, email, topic, message, website })
+      body: JSON.stringify({ name, email, topic, message, website: websiteValue })
     });
 
     let result = null;
