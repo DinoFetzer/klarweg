@@ -7,6 +7,8 @@ const i18n = {
     'nav.about': 'Über mich',
     'nav.philosophy': 'Philosophie',
     'nav.contact': 'Kontakt',
+    'nav.imprint': 'Impressum',
+    'nav.privacy': 'Datenschutz',
     'lang.aria': 'Sprachauswahl',
     'hero.eyebrow': 'Klarweg Beratung',
     'hero.title': 'Heute entscheide ich mich für mich!',
@@ -60,7 +62,32 @@ const i18n = {
     'contact.emailButton': 'Per E-Mail senden',
     'contact.emailSubject': 'Klarweg Anfrage',
     'contact.emailBodyIntro': 'Diese Nachricht wurde über das Formular auf klarweg.online erstellt.',
-    'footer.disclaimer': 'Vertrauliche Beratung – ersetzt keine medizinische oder psychotherapeutische Notfallversorgung.'
+    'legal.eyebrow': 'Rechtliches',
+    'legal.imprint.heading': 'Impressum',
+    'legal.imprint.owner': 'Angaben gemäß § 5 TMG:\nSigrid Wadenpohl',
+    'legal.imprint.address': 'Bäumerstraße 15\n40545 Düsseldorf\nDeutschland',
+    'legal.imprint.contact': 'E-Mail: info@klarweg.online\nTelefon: +49 172 7215187',
+    'legal.imprint.profession': 'Berufsbezeichnung: Heilpraktikerin',
+    'legal.imprint.authority': 'Zuständige Aufsichtsbehörde:\nGesundheitsamt Düsseldorf\nZulassung als Heilpraktikerin',
+    'legal.imprint.disclaimer': 'Die Inhalte dieser Website dienen ausschließlich der allgemeinen Information und stellen keine medizinische oder psychotherapeutische Beratung dar.',
+    'legal.privacy.heading': 'Datenschutzerklärung',
+    'legal.privacy.p1': 'Verantwortliche Stelle: Sigrid Wadenpohl, Barmerstraße 15, 40545 Düsseldorf, Deutschland.',
+    'legal.privacy.p2': 'Kontakt: E-Mail info@klarweg.online, Telefon +49 172 7215187.',
+    'legal.privacy.p3': 'Diese Website dient der Information und Kontaktaufnahme. Wir verarbeiten personenbezogene Daten nur, soweit dies zur Bereitstellung der Website und zur Bearbeitung von Anfragen erforderlich ist.',
+    'legal.privacy.p4': 'Hosting: Die Website wird über Vercel (Vercel Inc.) bereitgestellt. Dabei können technische Zugriffsdaten (z.B. IP-Adresse, Datum/Uhrzeit, aufgerufene Seite, User-Agent) in Server-Logs verarbeitet werden, um den sicheren Betrieb zu gewährleisten.',
+    'legal.privacy.p5': 'Kontaktformular: Wenn du das Kontaktformular nutzt, verarbeiten wir die von dir eingegebenen Daten (Name, E-Mail, Thema, Nachricht), um deine Anfrage zu bearbeiten und zu beantworten.',
+    'legal.privacy.p6': 'E-Mail-Versand: Die Übermittlung der Kontaktanfrage erfolgt technisch über eine Server-Funktion und wird per SMTP an die E-Mail-Adresse info@klarweg.online zugestellt. Dabei werden die von dir eingegebenen Inhalte zum Zweck der Kommunikation verarbeitet.',
+    'legal.privacy.p7': 'WhatsApp: Wenn du per WhatsApp Kontakt aufnimmst, gelten die Datenschutzbestimmungen von WhatsApp/Meta. Die Nutzung erfolgt freiwillig.',
+    'legal.privacy.p8': 'Cookies/Local Storage: Diese Website setzt keine Marketing- oder Tracking-Cookies ein. Für eine komfortable Nutzung kann eine lokale Speicherung (Local Storage) verwendet werden, um z.B. Hinweise auszublenden oder Spracheinstellungen zu merken.',
+    'legal.privacy.p9': 'Rechtsgrundlagen: Die Verarbeitung erfolgt je nach Kontext auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO (Anbahnung/Erfüllung von Kontaktanfragen) und Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an sicherem, stabilem Betrieb der Website).',
+    'legal.privacy.p10': 'Speicherdauer: Wir speichern personenbezogene Daten nur so lange, wie dies zur Bearbeitung deiner Anfrage erforderlich ist oder gesetzliche Pflichten bestehen.',
+    'legal.privacy.p11': 'Deine Rechte: Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit sowie Widerspruch. Außerdem kannst du dich bei einer Datenschutz-Aufsichtsbehörde beschweren.',
+    'footer.imprintLink': 'Impressum',
+    'footer.privacyLink': 'Datenschutz',
+    'footer.disclaimer': 'Vertrauliche Beratung – ersetzt keine medizinische oder psychotherapeutische Notfallversorgung.',
+    'cookie.text': 'Hinweis: Diese Website verwendet keine Tracking-Cookies. Für Funktionen wie Spracheinstellungen kann eine lokale Speicherung genutzt werden.',
+    'cookie.button': 'Verstanden',
+    'cookie.aria': 'Cookie Hinweis'
   },
   en: {
     'nav.menu': 'Menu',
@@ -70,6 +97,8 @@ const i18n = {
     'nav.about': 'About me',
     'nav.philosophy': 'Philosophy',
     'nav.contact': 'Contact',
+    'nav.imprint': 'Legal Notice',
+    'nav.privacy': 'Privacy',
     'lang.aria': 'Language selection',
     'hero.eyebrow': 'Klarweg Counseling',
     'hero.title': 'Today I choose myself.',
@@ -123,11 +152,37 @@ const i18n = {
     'contact.emailButton': 'Send via email',
     'contact.emailSubject': 'Klarweg inquiry',
     'contact.emailBodyIntro': 'This message was created via the form on klarweg.online.',
-    'footer.disclaimer': 'Confidential counseling—does not replace emergency medical or psychotherapeutic care.'
+    'legal.eyebrow': 'Legal',
+    'legal.imprint.heading': 'Legal Notice',
+    'legal.imprint.owner': 'Information according to Section 5 German Telemedia Act (TMG):\nSigrid Wadenpohl',
+    'legal.imprint.address': 'Bäumerstraße 15\n40545 Düsseldorf\nGermany',
+    'legal.imprint.contact': 'Email: info@klarweg.online\nPhone: +49 172 7215187',
+    'legal.imprint.profession': 'Professional title: Alternative Practitioner (Heilpraktikerin)',
+    'legal.imprint.authority': 'Supervisory authority:\nPublic Health Office Düsseldorf\nLicensed as an Alternative Practitioner',
+    'legal.imprint.disclaimer': 'The content of this website is provided for general informational purposes only and does not constitute medical or psychotherapeutic advice.',
+    'legal.privacy.heading': 'Privacy Policy',
+    'legal.privacy.p1': 'Controller: Sigrid Wadenpohl, Barmerstraße 15, 40545 Düsseldorf, Germany.',
+    'legal.privacy.p2': 'Contact: Email info@klarweg.online, Phone +49 172 7215187.',
+    'legal.privacy.p3': 'This website is provided for information and contacting us. We process personal data only insofar as necessary to operate the website and handle inquiries.',
+    'legal.privacy.p4': 'Hosting: This website is hosted via Vercel (Vercel Inc.). Technical access data (e.g., IP address, date/time, requested page, user agent) may be processed in server logs to ensure secure operation.',
+    'legal.privacy.p5': 'Contact form: When you use the contact form, we process the data you provide (name, email, topic, message) to handle and respond to your request.',
+    'legal.privacy.p6': 'Email delivery: The request is transmitted via a server function and delivered via SMTP to info@klarweg.online. Your submitted content is processed for communication purposes.',
+    'legal.privacy.p7': 'WhatsApp: If you contact us via WhatsApp, WhatsApp/Meta’s privacy policies apply. Use is voluntary.',
+    'legal.privacy.p8': 'Cookies/Local Storage: This website does not use marketing or tracking cookies. Local storage may be used for convenience (e.g., dismissing notices or remembering language settings).',
+    'legal.privacy.p9': 'Legal basis: Depending on context, processing is based on Art. 6(1)(b) GDPR (pre-contractual communication) and Art. 6(1)(f) GDPR (legitimate interest in secure, stable website operation).',
+    'legal.privacy.p10': 'Retention: We store personal data only as long as necessary to process your inquiry or as required by law.',
+    'legal.privacy.p11': 'Your rights: You have the right to access, rectification, erasure, restriction, data portability, and objection. You may also lodge a complaint with a data protection authority.',
+    'footer.imprintLink': 'Legal Notice',
+    'footer.privacyLink': 'Privacy',
+    'footer.disclaimer': 'Confidential counseling—does not replace emergency medical or psychotherapeutic care.',
+    'cookie.text': 'Notice: This website does not use tracking cookies. Local storage may be used for features like remembering language settings.',
+    'cookie.button': 'Got it',
+    'cookie.aria': 'Cookie notice'
   }
 };
 
 const storageKey = 'klarweg_lang';
+const cookieNoticeKey = 'klarweg_cookie_notice';
 const htmlEl = document.documentElement;
 const langButtons = document.querySelectorAll('.lang-btn');
 const navToggle = document.querySelector('.nav-toggle');
@@ -138,6 +193,8 @@ const form = document.getElementById('contact-form');
 const formMessage = document.querySelector('.form-message');
 const emailLink = document.getElementById('email-link');
 const submitButton = form?.querySelector('button[type="submit"]') || null;
+const cookieNotice = document.getElementById('cookie-notice');
+const cookieAcceptButton = document.getElementById('cookie-accept');
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 let currentLanguage = 'de';
 let isSubmitting = false;
@@ -398,5 +455,30 @@ function initLanguage() {
   applyLanguage(saved);
 }
 
+function initCookieNotice() {
+  if (!cookieNotice || !cookieAcceptButton) return;
+  let dismissed = false;
+  try {
+    dismissed = localStorage.getItem(cookieNoticeKey) === '1';
+  } catch (err) {
+    dismissed = false;
+  }
+  if (dismissed) {
+    cookieNotice.classList.add('hidden');
+  } else {
+    cookieNotice.classList.remove('hidden');
+  }
+
+  cookieAcceptButton.addEventListener('click', () => {
+    cookieNotice.classList.add('hidden');
+    try {
+      localStorage.setItem(cookieNoticeKey, '1');
+    } catch (err) {
+      // Ignore storage errors
+    }
+  });
+}
+
 setCurrentYear();
 initLanguage();
+initCookieNotice();
